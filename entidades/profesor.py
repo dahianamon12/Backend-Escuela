@@ -1,4 +1,4 @@
-from modelos.persona import Persona
+from entidades.persona import Persona
 
 
 class Profesor(Persona):
