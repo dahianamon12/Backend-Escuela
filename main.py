@@ -80,7 +80,7 @@ def validar_nota(nota_str: str) -> tuple[bool, float]:
 def main() -> None:
     estudiantes: dict[str, Estudiante] = {}
     profesores: dict[str, Profesor] = {}
-    materias: list[Materia] = []
+    materias = []
     while True:
         menu()
         opcion = input("Selccione una opcion: ").strip()
@@ -88,7 +88,7 @@ def main() -> None:
             print("Opcion invalida")
             continue
 
-        if opcion == "1":  # FIX: todo el bloque ahora está dentro del if
+        if opcion == "1":
             documento = input("Documento: ").strip()
 
             if documento in estudiantes:
