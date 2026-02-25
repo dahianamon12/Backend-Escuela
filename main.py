@@ -42,7 +42,44 @@ def mostrar_materias(lista_materias: list) -> None:
         print(materia)
 
 
+def texto_no_vacio(texto: str) -> bool:
+    return len(texto.strip()) > 0
+
+
+def validar_entero(numero: str) -> tuple[bool, int]:
+    numero = numero.strip()
+    if not numero.isdigit():
+        return False, 0
+    return True, int(numero)
+
+
+def validar_nota(nota_str: str) -> tuple[bool, float]:
+    nota_str = nota_str.strip()
+    partes = nota_str.split(".")
+
+    if len(partes) > 2:
+        return False, 0.0
+
+    entero = partes[0]
+    decimal = partes[1] if len(partes) == 2 else ""
+
+    if not entero.isdigit():
+        return False, 0.0
+
+    if decimal != "" and not decimal.isdigit():
+        return False, 0.0
+
+    valor = float(nota_str)
+
+    if valor < 0.0 or valor > 5.0:
+        return False, 0.0
+
+    return True, valor
+
+
 def main() -> None:
+    estudiantes: dict[str, Estudiante] = {}
+    profesores: dict[str, Profesor] = {}
     materias = []
     while True:
         menu()
@@ -50,29 +87,143 @@ def main() -> None:
         if opcion not in ("1", "2", "3", "4", "5", "6", "7", "8", "9"):
             print("Opcion invalida")
             continue
+
         if opcion == "1":
-            continue
+            documento = input("Documento: ").strip()
+
+            if documento in estudiantes:
+                print("Ya existe un estudiante con ese documento.")
+                continue
+
+            nombre = input("Nombre: ").strip()
+            if not texto_no_vacio(nombre):
+                print("Nombre inválido.")
+                continue
+
+            edad_str = input("Edad: ")
+            ok_edad, edad = validar_entero(edad_str)
+            if not ok_edad:
+                print("Edad inválida.")
+                continue
+
+            correo = input("Correo: ").strip()
+            if not texto_no_vacio(correo):
+                print("Correo inválido.")
+                continue
+
+            carnet = input("Carnet: ").strip()
+            if not texto_no_vacio(carnet):
+                print("Carnet inválido.")
+                continue
+
+            grado = input("Grado: ").strip()
+            salon = input("Salón: ").strip()
+
+            cantidad_str = input("Cantidad de notas: ")
+            ok_cant, cantidad = validar_entero(cantidad_str)
+            if not ok_cant or cantidad <= 0:
+                print("Cantidad inválida.")
+                continue
+
+            estudiantes[documento] = Estudiante(
+                nombre,
+                documento,
+                edad,
+                correo,
+                carnet,
+                grado,
+                salon,
+                cantidad,
+            )
+            print("Estudiante registrado correctamente.")
 
         elif opcion == "2":
-            continue
+            documento = input("Documento: ").strip()
+
+            if documento in profesores:
+                print("Ya existe un profesor con ese documento.")
+                continue
+
+            nombre = input("Nombre: ").strip()
+            if not texto_no_vacio(nombre):
+                print("Nombre inválido.")
+                continue
+
+            edad_str = input("Edad: ")
+            ok_edad, edad = validar_entero(edad_str)
+            if not ok_edad:
+                print("Edad inválida.")
+                continue
+
+            correo = input("Correo: ").strip()
+            if not texto_no_vacio(correo):
+                print("Correo inválido.")
+                continue
+
+            especialidad = input("Especialidad: ").strip()
+
+            profesores[documento] = Profesor(
+                nombre,
+                documento,
+                edad,
+                correo,
+                especialidad,
+            )
+            print("Profesor registrado correctamente.")
+
         elif opcion == "3":
             registrar_materia()
 
         elif opcion == "4":
-            continue
+            documento = input("Documento del estudiante: ").strip()
+
+            if documento not in estudiantes:
+                print("Estudiante no existe.")
+                continue
+
+            nota_str = input("Nota (0.0 - 5.0): ")
+            ok_nota, nota = validar_nota(nota_str)
+            if not ok_nota:
+                print("Nota inválida.")
+                continue
+
+            print(estudiantes[documento].registrar_nota(nota))
+
         elif opcion == "5":
-            continue
+            documento = input("Documento del estudiante: ").strip()
+
+            if documento not in estudiantes:
+                print("Estudiante no existe.")
+                continue
+
+            promedio = estudiantes[documento].calcular_promedio()
+            print(f"Promedio actual: {promedio:.2f}")
+
         elif opcion == "6":
-            continue
+            if not estudiantes:
+                print("No hay estudiantes registrados.")
+                continue
+
+            for (
+                est
+            ) in estudiantes.values():  # FIX: variable del loop renombrada a 'est'
+                print(est.mostrar_datos())
+
         elif opcion == "7":
-            continue
+            if not profesores:
+                print("No hay profesores registrados.")
+                continue
+
+            for profesor in profesores.values():
+                print(profesor.mostrar_datos())
+
         elif opcion == "8":
             mostrar_materias()
 
         elif opcion == "9":
-            print("Saliendo del sistem...")
+            print("Saliendo del sistema...")
             break
 
 
-if __name__ == "_main_":
+if __name__ == "__main__":
     main()
