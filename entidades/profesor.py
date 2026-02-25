@@ -10,5 +10,5 @@ class Profesor(Persona):
         especialidad: str,
         correo: str,
     ) -> None:
-        super().__init__(nombre, documento, edad)
+        super().__init__(nombre, documento, edad, correo)
         self.especialidad: str = especialidad
