@@ -10,8 +10,9 @@ class Estudiante(Persona):
         grado: str,
         salon: str,
         cantidad_notas: int,
+        correo: str,
     ) -> None:
-        super().__init__(nombre, documento, edad)
+        super().__init__(nombre, documento, edad, correo)
         self.grado: str = grado
         self.salon: str = salon
         self.cantidad_notas: int = cantidad_notas
