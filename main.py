@@ -42,7 +42,6 @@ def mostrar_materias(lista_materias: list) -> None:
         print(materia)
 
 
-def main() -> None:
     materias = []
     while True:
         menu()
@@ -50,29 +49,15 @@ def main() -> None:
         if opcion not in ("1", "2", "3", "4", "5", "6", "7", "8", "9"):
             print("Opcion invalida")
             continue
-        if opcion == "1":
-            continue
 
-        elif opcion == "2":
-            continue
         elif opcion == "3":
             registrar_materia()
 
         elif opcion == "4":
-            continue
-        elif opcion == "5":
-            continue
-        elif opcion == "6":
-            continue
-        elif opcion == "7":
-            continue
+
         elif opcion == "8":
             mostrar_materias()
 
         elif opcion == "9":
-            print("Saliendo del sistem...")
-            break
 
-
-if __name__ == "_main_":
     main()
