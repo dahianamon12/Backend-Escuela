@@ -4,6 +4,10 @@ from entidades.materias import Materia
 
 
 def menu() -> None:
+    """
+    Muestra en pantalla el menú principal del sistema escolar
+    con las opciones disponibles para el usuario.
+    """
     print("\n-----Sistema Escolar-----")
     print("1. Registrar estudiante")
     print("2. Registrar profesor")
@@ -17,6 +21,16 @@ def menu() -> None:
 
 
 def registrar_materia(lista_materias: list) -> None:
+    """
+    Solicita al usuario los datos de una materia, crea una instancia
+    de la clase Materia y la agrega a la lista si los datos son válidos.
+
+    Args:
+        lista_materias (list): Lista donde se almacenan las materias registradas.
+
+    Returns:
+        None
+    """
     codigo = input("Ingrese el codigo del grupo que desea crear: ")
     nombre = input("Nombre: ")
     modalidad = input("Modalidad entre 'presencial', 'virtual' o 'mixta': ")
@@ -35,6 +49,17 @@ def registrar_materia(lista_materias: list) -> None:
 
 
 def mostrar_materias(lista_materias: list) -> None:
+    """
+    Muestra en pantalla todas las materias registradas.
+
+    Si la lista está vacía, informa que no hay materias registradas.
+
+    Args:
+        lista_materias (list): Lista que contiene las materias registradas.
+
+    Returns:
+        None
+    """
     if not lista_materias:
         print("Aun no hay materias registradas.")
         return

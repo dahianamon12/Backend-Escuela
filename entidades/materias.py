@@ -7,6 +7,18 @@ class Materia:
         intensidad_horas_sem: int,
         cantidad_sem: int,
     ) -> None:
+        """
+        Inicializa una nueva instancia de la clase Materia.
+
+        Args:
+            codigo (str): Código identificador único de la materia.
+            nombre (str): Nombre de la materia.
+            modalidad (str): Modalidad en la que se dicta la materia
+                (por ejemplo: presencial, virtual o híbrida).
+            intensidad_horas_sem (int): Número de horas semanales de la materia.
+            cantidad_sem (int): Cantidad de semestres en los que se ofrece
+                o pertenece la materia.
+        """
 
         self._codigo = codigo.strip()
         self._nombre = nombre.strip()
@@ -35,6 +47,19 @@ class Materia:
         return self._cantidad_sem
 
     def validar_materias(self) -> bool:
+        """
+        Valida que los atributos de la materia cumplan con las reglas establecidas.
+
+        Reglas de validación:
+            - El código no debe estar vacío.
+            - El nombre no debe estar vacío.
+            - La modalidad debe ser "presencial", "virtual" o "mixta".
+            - La intensidad horaria semanal debe ser mayor que 0.
+            - La cantidad de semestres debe ser mayor que 0.
+
+        Returns:
+            bool: True si todos los datos son válidos, False en caso contrario.
+        """
 
         if not self._codigo:
             return False
@@ -55,7 +80,14 @@ class Materia:
         return True
 
     def __str__(self) -> str:
+        """
+        Retorna una representación en cadena de texto de la materia,
+        mostrando sus datos principales de forma descriptiva.
 
+        Returns:
+            str: Información formateada con el nombre, código, modalidad,
+            intensidad horaria semanal y duración en semanas.
+        """
         return (
             f"{self._nombre} con el codigo: "
             f"{self._codigo} en modalidad "
