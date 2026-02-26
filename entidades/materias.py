@@ -55,6 +55,7 @@ class Materia:
         return True
 
     def __str__(self) -> str:
+
         return (
             f"{self._nombre} con el codigo: "
             f"{self._codigo} en modalidad "
