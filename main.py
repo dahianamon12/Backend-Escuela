@@ -41,6 +41,7 @@ def mostrar_materias(lista_materias: list) -> None:
     for materia in lista_materias:
         print(materia)
 
+
     materias = []
     while True:
         menu()
@@ -53,7 +54,7 @@ def mostrar_materias(lista_materias: list) -> None:
             registrar_materia()
 
         elif opcion == "4":
-<<
+
         elif opcion == "8":
             mostrar_materias()
 
