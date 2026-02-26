@@ -2,6 +2,20 @@ from entidades.persona import Persona
 
 
 class Estudiante(Persona):
+    """
+    Representa un estudiante en el sistema escolar.
+
+    Hereda de Persona y añade atributos académicos como grado,
+    salón, carnet y manejo de notas.
+
+    Attributes:
+        carnet (str): Identificador de carnet del estudiante.
+        grado (str): Grado académico en el que se encuentra.
+        salon (str): Salón al que pertenece el estudiante.
+        cantidad_notas (int): Número máximo de notas permitidas.
+        notas (list[float]): Lista de notas registradas.
+    """
+
     def __init__(
         self,
         nombre: str,
@@ -13,6 +27,19 @@ class Estudiante(Persona):
         correo: str,
         carnet: str,
     ) -> None:
+        """
+        Inicializa un estudiante con sus datos personales y académicos.
+
+        Args:
+            nombre (str): Nombre completo del estudiante.
+            documento (str): Número de documento de identidad.
+            edad (int): Edad del estudiante.
+            grado (str): Grado académico del estudiante.
+            salon (str): Salón asignado al estudiante.
+            cantidad_notas (int): Cantidad máxima de notas a registrar.
+            correo (str): Correo electrónico del estudiante.
+            carnet (str): Número de carnet del estudiante.
+        """
         super().__init__(nombre, documento, edad, correo)
         self.carnet: str = carnet
         self.grado: str = grado
