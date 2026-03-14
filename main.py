@@ -1,6 +1,6 @@
-from entidades.estudiante import Estudiante
-from entidades.profesor import Profesor
-from entidades.materias import Materia
+from entidades.src.entities.estudiante import Estudiante
+from entidades.src.entities.profesor import Profesor
+from entidades.src.entities.curso import Materia
 
 
 def menu() -> None:
