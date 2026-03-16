@@ -4,6 +4,10 @@ from entidades.src.entities.curso import Materia
 
 
 def menu() -> None:
+    """
+    Muestra en pantalla el menú principal del sistema escolar
+    con las opciones disponibles para el usuario.
+    """
     print("\n-----Sistema Escolar-----")
     print("1. Registrar estudiante")
     print("2. Registrar profesor")
@@ -17,6 +21,16 @@ def menu() -> None:
 
 
 def registrar_materia(lista_materias: list) -> None:
+    """
+    Solicita al usuario los datos de una materia, crea una instancia
+    de la clase Materia y la agrega a la lista si los datos son válidos.
+
+    Args:
+        lista_materias (list): Lista donde se almacenan las materias registradas.
+
+    Returns:
+        None
+    """
     codigo = input("Ingrese el codigo del grupo que desea crear: ")
     nombre = input("Nombre: ")
     modalidad = input("Modalidad entre 'presencial', 'virtual' o 'mixta': ")
@@ -35,6 +49,17 @@ def registrar_materia(lista_materias: list) -> None:
 
 
 def mostrar_materias(lista_materias: list) -> None:
+    """
+    Muestra en pantalla todas las materias registradas.
+
+    Si la lista está vacía, informa que no hay materias registradas.
+
+    Args:
+        lista_materias (list): Lista que contiene las materias registradas.
+
+    Returns:
+        None
+    """
     if not lista_materias:
         print("Aun no hay materias registradas.")
         return
@@ -43,10 +68,29 @@ def mostrar_materias(lista_materias: list) -> None:
 
 
 def texto_no_vacio(texto: str) -> bool:
+    """
+    Verifica que un texto no esté vacío.
+
+    Args:
+        texto (str): Texto a validar.
+
+    Returns:
+        bool: True si el texto tiene al menos un carácter, False si está vacío.
+    """
     return len(texto.strip()) > 0
 
 
 def validar_entero(numero: str) -> tuple[bool, int]:
+    """
+    Valida que una cadena represente un número entero positivo.
+
+    Args:
+        numero (str): Cadena a validar.
+
+    Returns:
+        tuple[bool, int]: (True, valor entero) si es válido,
+                          (False, 0) si no lo es.
+    """
     numero = numero.strip()
     if not numero.isdigit():
         return False, 0
@@ -54,6 +98,16 @@ def validar_entero(numero: str) -> tuple[bool, int]:
 
 
 def validar_nota(nota_str: str) -> tuple[bool, float]:
+    """
+    Valida que una cadena represente una nota válida entre 0.0 y 5.0.
+
+    Args:
+        nota_str (str): Cadena a validar.
+
+    Returns:
+        tuple[bool, float]: (True, valor de la nota) si es válida,
+                            (False, 0.0) si no lo es.
+    """
     nota_str = nota_str.strip()
     partes = nota_str.split(".")
 
@@ -78,6 +132,14 @@ def validar_nota(nota_str: str) -> tuple[bool, float]:
 
 
 def main() -> None:
+    """
+    Función principal del sistema escolar.
+
+    Gestiona el flujo del menú y las operaciones sobre estudiantes,
+    profesores y materias. Mantiene en memoria los diccionarios de
+    estudiantes y profesores (indexados por documento) y la lista
+    de materias durante la ejecución del programa.
+    """
     estudiantes: dict[str, Estudiante] = {}
     profesores: dict[str, Profesor] = {}
     materias = []
@@ -90,7 +152,7 @@ def main() -> None:
             print("Opcion invalida")
             continue
 
-        if opcion == "1":  # FIX: todo el bloque ahora está dentro del if
+        if opcion == "1":
             documento = input("Documento: ").strip()
 
             if documento in estudiantes:
