@@ -8,7 +8,7 @@ from src.database.config import Base
 
 
 class Aula(Base):
-    _tablename_ = "aula"
+    __tablename__ = "aula"
 
     id_aula = Column(
         UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True

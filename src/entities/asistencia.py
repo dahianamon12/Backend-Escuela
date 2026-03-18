@@ -8,7 +8,7 @@ from src.database.config import Base
 
 
 class Asistencia(Base):
-    _tablename_ = "asistencia"
+    __tablename__ = "asistencia"
 
     id_asistencia = Column(
         UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True

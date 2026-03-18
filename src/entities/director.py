@@ -8,7 +8,7 @@ from src.database.config import Base
 
 
 class Director(Base):
-    _tablename_ = "director"
+    __tablename__ = "director"
 
     id_director = Column(
         UUID(as_uuid=True), ForeignKey("usuario.id_usuario"), primary_key=True
