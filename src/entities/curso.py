@@ -8,7 +8,7 @@ from src.database.config import Base
 
 
 class Curso(Base):
-    _tablename_ = "curso"
+    __tablename__ = "curso"
 
     id_curso = Column(
         UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True

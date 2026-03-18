@@ -8,7 +8,7 @@ from src.database.config import Base
 
 
 class Grado(Base):
-    _tablename_ = "grado"
+    __tablename__ = "grado"
 
     id_grado = Column(
         UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True
