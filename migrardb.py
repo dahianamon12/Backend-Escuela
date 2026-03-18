@@ -12,10 +12,18 @@ import os
 from dotenv import load_dotenv
 from sqlalchemy.exc import OperationalError
 
-import src.entities  # noqa: F401 - registrar modelo
-import src.entities  # noqa: F401 - registrar modelo
-import src.entities  # noqa: F401 - registrar modelo
-import src.entities  # noqa: F401 - registrar modelo
+import src.entities.asistencia  # noqa: F401 - registrar modelo
+import src.entities.aula  # noqa: F401 - registrar modelo
+import src.entities.calificacion  # noqa: F401 - registrar modelo
+import src.entities.curso  # noqa: F401 - registrar modelo
+import src.entities.departamento  # noqa: F401 - registrar modelo
+import src.entities.director  # noqa: F401 - registrar modelo
+import src.entities.estudiante  # noqa: F401 - registrar modelo
+import src.entities.grado  # noqa: F401 - registrar modelo
+import src.entities.horario  # noqa: F401 - registrar modelo
+import src.entities.profesor  # noqa: F401 - registrar modelo
+import src.entities.usuario  # noqa: F401 - registrar modelo
+
 from src.database.config import create_tables
 
 # Cargar .env desde la carpeta del proyecto (donde está init_db.py)
