@@ -17,7 +17,6 @@ class Departamento(Base):
     telefono = Column(String(20))
     oficina = Column(String(50))
 
-    # Trazabilidad (Fiel a tu ejemplo)
     fecha_creacion = Column(DateTime(timezone=True), server_default=func.now())
     fecha_edicion = Column(DateTime(timezone=True), onupdate=func.now())
     id_usuario_creacion = Column(
