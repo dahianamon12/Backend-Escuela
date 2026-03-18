@@ -42,6 +42,18 @@ class PersonaCreate(PersonaBase):
     contrasena: str = Field(..., min_length=8)
 
 
+class PersonaUpdate(BaseModel):
+    nombre: Optional[str] = Field(None, min_length=1, max_length=150)
+    email: Optional[EmailStr] = None
+    nombre_usuario: Optional[str] = Field(None, min_length=3, max_length=150)
+    rol: Optional[str] = None
+    activo: Optional[bool] = None
+    contrasena: Optional[str] = Field(None, min_length=8)
+
+    class Config:
+        from_attributes = True
+
+
 class PersonaResponse(PersonaBase):
 
     id_usuario: UUID
