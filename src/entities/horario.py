@@ -8,7 +8,7 @@ from src.database.config import Base
 
 
 class Horario(Base):
-    _tablename_ = "horario"
+    __tablename__ = "horario"
 
     id_horario = Column(
         UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True
