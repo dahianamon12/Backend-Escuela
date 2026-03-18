@@ -8,7 +8,7 @@ from src.database.config import Base
 
 
 class Calificacion(Base):
-    _tablename_ = "calificacion"
+    __tablename__ = "calificacion"
 
     id_calificacion = Column(
         UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True

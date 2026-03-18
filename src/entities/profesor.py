@@ -8,7 +8,7 @@ from src.database.config import Base
 
 
 class Profesor(Base):
-    _tablename_ = "profesor"
+    __tablename__ = "profesor"
 
     id_profesor = Column(
         UUID(as_uuid=True), ForeignKey("usuario.id_usuario"), primary_key=True
