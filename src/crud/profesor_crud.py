@@ -2,10 +2,7 @@ from uuid import UUID
 
 from src.database.config import SessionLocal
 
-from entities.profesor import Profesor
-
-db = SessionLocal()
-
+from src.entities.profesor import Profesor
 
 def crear_profesor(
     id_usuario: UUID,
@@ -13,13 +10,17 @@ def crear_profesor(
     especialidad: str,
     id_usuario_creacion: UUID,
 ) -> Profesor:
-    profesor = Profesor(
-        id_profesor=id_usuario,
-        id_departamento=id_departamento,
-        especialidad=especialidad,
-        id_usuario_creacion=id_usuario_creacion,
-    )
-    db.add(profesor)
-    db.commit()
-    db.refresh(profesor)
-    return profesor
+    db = SessionLocal()
+    try:
+        profesor = Profesor(
+            id_profesor=id_usuario,
+            id_departamento=id_departamento,
+            especialidad=especialidad,
+            id_usuario_creacion=id_usuario_creacion,
+        )
+        db.add(profesor)
+        db.commit()
+        db.refresh(profesor)
+        return profesor
+    finally:
+        db.close()

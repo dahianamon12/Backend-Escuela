@@ -30,3 +30,4 @@ class Estudiante(Base):
     usuario_creacion = relationship("Usuario", foreign_keys=[id_usuario_creacion])
     usuario_edita = relationship("Usuario", foreign_keys=[id_usuario_edita])
     grado = relationship("Grado", foreign_keys=[id_grado])
+    usuario = relationship("Usuario", foreign_keys=[id_estudiante])
