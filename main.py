@@ -24,9 +24,12 @@ def leer_texto(m: str) -> str:
 
 def leer_uuid(m: str) -> Optional[UUID]:
     s = input(m).strip()
+    if not s:
+        return None
     try:
-        return UUID(s) if s else None
+        return UUID(s)
     except ValueError:
+        print(f"  [!] UUID inválido: '{s}'. Verifica que lo copiaste completo.")
         return None
 
 
@@ -119,13 +122,14 @@ def mostrar_cursos():
 
 def mostrar_estudiantes():
     from src.entities.estudiante import Estudiante
+    from src.entities.usuario import Usuario
     from src.database.config import SessionLocal
     db = SessionLocal()
     try:
         estudiantes = db.query(Estudiante).all()
         print("\n--- ESTUDIANTES DISPONIBLES ---")
         for e in estudiantes:
-            print(f"  ID: {e.id_estudiante}")
+            print(f"  {e.usuario.nombre} | ID: {e.id_estudiante}")
         print()
     finally:
         db.close()
@@ -169,22 +173,31 @@ def menu_configuracion(admin_id: UUID):
         op = leer_texto(">> ")
         if op == "0":
             break
-        if op == "1":
+        elif op == "1":
             numero = leer_texto("Número de Aula: ")
             capacidad = leer_texto("Capacidad: ")
             edificio = leer_texto("Edificio: ")
-            aula = aula_crud.crear_aula(numero, capacidad, edificio, admin_id)
-            print(f"Aula creada. ID: {aula.id_aula}")
-        if op == "2":
+            if numero and capacidad and edificio:
+                aula = aula_crud.crear_aula(numero, capacidad, edificio, admin_id)
+                print(f"Aula creada. ID: {aula.id_aula}")
+            else:
+                print("  [!] Todos los campos son obligatorios.")
+        elif op == "2":
             nom = leer_texto("Nombre Grado (ej: 11-B): ")
-            grado = grado_crud.crear_grado(nom, "Secundaria", "Mañana", admin_id)
-            print(f"Grado creado. ID: {grado.id_grado}")
-        if op == "3":
+            if nom:
+                grado = grado_crud.crear_grado(nom, "Secundaria", "Mañana", admin_id)
+                print(f"Grado creado. ID: {grado.id_grado}")
+            else:
+                print("  [!] El nombre del grado es obligatorio.")
+        elif op == "3":
             nom = leer_texto("Nombre Departamento: ")
             tel = leer_texto("Teléfono: ")
             ofi = leer_texto("Oficina: ")
-            depto = departamento_crud.crear_departamento(nom, tel, ofi, admin_id)
-            print(f"Departamento creado. ID: {depto.id_departamento}")
+            if nom and tel and ofi:
+                depto = departamento_crud.crear_departamento(nom, tel, ofi, admin_id)
+                print(f"Departamento creado. ID: {depto.id_departamento}")
+            else:
+                print("  [!] Todos los campos son obligatorios.")
 
 
 def menu_personas(admin_id: UUID):
@@ -196,7 +209,7 @@ def menu_personas(admin_id: UUID):
         op = leer_texto(">> ")
         if op == "0":
             break
-        if op == "1":
+        elif op == "1":
             mostrar_usuarios()
             mostrar_grados()
             id_u = leer_uuid("ID del Usuario: ")
@@ -204,7 +217,9 @@ def menu_personas(admin_id: UUID):
             if id_u and id_g:
                 estudiante_crud.crear_estudiante(id_u, id_g, admin_id)
                 print("Perfil de estudiante vinculado.")
-        if op == "2":
+            else:
+                print("  [!] IDs inválidos o vacíos.")
+        elif op == "2":
             mostrar_usuarios()
             mostrar_departamentos()
             id_u = leer_uuid("ID del Usuario: ")
@@ -213,6 +228,8 @@ def menu_personas(admin_id: UUID):
             if id_u and id_d and esp:
                 profesor_crud.crear_profesor(id_u, id_d, esp, admin_id)
                 print("Perfil de profesor vinculado.")
+            else:
+                print("  [!] IDs inválidos o campos vacíos.")
 
 
 def menu_academico(user_id: UUID):
@@ -225,7 +242,7 @@ def menu_academico(user_id: UUID):
         op = leer_texto(">> ")
         if op == "0":
             break
-        if op == "1":
+        elif op == "1":
             mostrar_profesores()
             mostrar_grados()
             mostrar_aulas()
@@ -236,7 +253,9 @@ def menu_academico(user_id: UUID):
             if nom and id_p and id_g and id_a:
                 curso = curso_crud.crear_curso(nom, id_p, id_g, id_a, user_id)
                 print(f"Curso creado. ID: {curso.id_curso}")
-        if op == "2":
+            else:
+                print("  [!] IDs inválidos o campos vacíos.")
+        elif op == "2":
             mostrar_estudiantes()
             mostrar_cursos()
             id_e = leer_uuid("ID Estudiante: ")
@@ -245,7 +264,9 @@ def menu_academico(user_id: UUID):
             if id_e and id_c and nota:
                 calificacion_crud.crear_calificacion(nota, id_e, id_c, user_id)
                 print("Calificación guardada.")
-        if op == "3":
+            else:
+                print("  [!] IDs inválidos o nota vacía.")
+        elif op == "3":
             mostrar_estudiantes()
             mostrar_cursos()
             id_e = leer_uuid("ID Estudiante: ")
@@ -254,13 +275,15 @@ def menu_academico(user_id: UUID):
             estado = leer_texto("Estado (PRESENTE/AUSENTE/TARDANZA): ")
             if id_e and id_c and fecha and estado:
                 asistencia_crud.crear_asistencia(
-                    datetime.date.fromisoformat(fecha),
+                    datetime.datetime.fromisoformat(fecha),
                     estado,
                     id_e,
                     id_c,
                     user_id
                 )
                 print("Asistencia registrada.")
+            else:
+                print("  [!] IDs inválidos o campos vacíos.")
 
 
 def main():
