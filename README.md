@@ -1,6 +1,6 @@
 # 🎓 Backend-Escuela
 
-Sistema backend para la gestión académica de una institución educativa. Permite administrar estudiantes, cursos, calificaciones, asistencia y más, utilizando Python y conexión a base de datos.
+Sistema backend para la gestión académica de una institución educativa. Permite administrar estudiantes, cursos, calificaciones, asistencia y más, ahora mediante una **API REST construida con FastAPI**.
 
 ---
 
@@ -16,11 +16,22 @@ Sistema backend para la gestión académica de una institución educativa. Permi
   * Departamentos
   * Horarios
   * Usuarios
-* Conexión a base de datos mediante **Neon (PostgreSQL)**
-* Validación de datos con **Pydantic**
+
+* 🌐 API REST con FastAPI
+
+* ⚡ Servidor ASGI con Uvicorn
+
+* Validación de datos con Pydantic
+
+* Manejo de errores con HTTPException
+
+* Conexión a base de datos mediante Neon (PostgreSQL)
+
 * Arquitectura modular y escalable
+
 * Uso de Programación Orientada a Objetos
-* Separación por capas (entities, crud, database)
+
+* Separación por capas (entities, crud, database, routers)
 
 ---
 
@@ -58,6 +69,19 @@ Sistema backend para la gestión académica de una institución educativa. Permi
 │   ├── profesor.py
 │   └── usuario.py
 │
+├── 📁 routers
+│   ├── asistencia_router.py
+│   ├── aula_router.py
+│   ├── calificacion_router.py
+│   ├── curso_router.py
+│   ├── departamento_router.py
+│   ├── director_router.py
+│   ├── estudiante_router.py
+│   ├── grado_router.py
+│   ├── horario_router.py
+│   ├── profesor_router.py
+│   └── usuario_router.py
+│
 ├── main.py
 ├── migrardb.py
 ├── .env
@@ -72,58 +96,48 @@ Sistema backend para la gestión académica de una institución educativa. Permi
 
 El proyecto sigue una arquitectura modular basada en:
 
-* **Entities** → Modelos del dominio (POO + validaciones con Pydantic)
-* **CRUD** → Lógica de acceso y manipulación de datos
-* **Database** → Configuración de conexión a PostgreSQL (Neon)
-* **Main** → Punto de entrada del sistema
+* **Entities** → Modelos del dominio
+* **CRUD** → Lógica de acceso a datos
+* **Routers** → Endpoints de la API
+* **Database** → Conexión a PostgreSQL
+* **Main** → Punto de entrada
 
-### Conceptos aplicados:
+### Tecnologías utilizadas
 
-* Programación Orientada a Objetos (POO)
-* Encapsulamiento
-* Separación de responsabilidades
-* Validación de datos con Pydantic
-* Manejo de variables de entorno (.env)
+* FastAPI
+* Uvicorn
+* Pydantic
+* PostgreSQL (Neon)
+
+---
+
+## 📡 Endpoints
+
+* `GET /recurso` → Obtener todos
+* `GET /recurso/{id}` → Obtener por ID
+* `POST /recurso` → Crear
+* `PUT /recurso/{id}` → Actualizar
+* `DELETE /recurso/{id}` → Eliminar
 
 ---
 
 ## ⚙️ Requisitos
 
 * Python 3.10 o superior
-* PostgreSQL (Neon recomendado)
+* PostgreSQL
 
 ---
 
 ## 📦 Instalación
 
-1. Clonar el repositorio:
+Clonar repositorio:
 
 ```bash
 git clone https://github.com/dahianamon12/Backend-Escuela
 cd Backend-Escuela
 ```
 
-2. Crear entorno virtual:
-
-```bash
-python -m venv venv
-```
-
-3. Activar entorno virtual:
-
-* Windows:
-
-```bash
-venv\Scripts\activate
-```
-
-* Linux / Mac:
-
-```bash
-source venv/bin/activate
-```
-
-4. Instalar dependencias:
+Instalar dependencias:
 
 ```bash
 pip install -r requirements.txt
@@ -131,52 +145,21 @@ pip install -r requirements.txt
 
 ---
 
-## 🔐 Configuración de variables de entorno
-
-Crear un archivo `.env` en la raíz del proyecto:
-
-```
-DATABASE_URL=postgresql://usuario:password@host:puerto/database
-```
-
-(Usa tu conexión proporcionada por Neon)
-
----
-
-## 🗄️ Migración / Inicialización de la Base de Datos
-
-Ejecuta:
+## ▶️ Ejecución
 
 ```bash
-python migrardb.py
-```
-
-Esto creará las tablas necesarias en la base de datos.
-
+ python -m uvicorn main:app --reload
+``` *
 ---
 
-## ▶️ Ejecución del Proyecto
-
-```bash
-python main.py
-
-```
-
+## 🎥 Video de explicación
+https://correoitmedu-my.sharepoint.com/:v:/g/personal/isabelagonzalez1128290_correo_itm_edu_co/IQCh4YTl_ygvRKs9pZRlKkwEAY-hEGDS68vkea4BvbYsXKg?e=Rj3nmWnav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbE1vZGUiOiJtaXMiLCJyZWZlcnJhbFZpZXciOiJwb3N0cm9sbC1jb3B5bGluayIsInJlZmVycmFsUGxheWJhY2tTZXNzaW9uSWQiOiJjNTc2NmI0My0zZTRmLTQxMzMtOWJmNi1kZWEwMzg2MzJjOWEifX0%3D
 ---
 
 ## ✒️ Autoras
 
-* **Dahiana Montañez**
-  https://github.com/dahianamon12
+- Dahiana Montañez  
+  https://github.com/dahianamon12  
 
-* **Isabela González**
-  https://github.com/isagonzaleze17-cpu
-
----
-
-## 📌 Notas
-
-* Asegúrate de tener correctamente configurado el archivo `.env`
-* No subir `.env` al repositorio (ya está incluido en `.gitignore`)
-* Proyecto con fines académicos, pero con estructura profesional escalable
-* link de la explicacion: https://correoitmedu-my.sharepoint.com/:v:/g/personal/dahianamontanez1129260_correo_itm_edu_co/IQDivmx9CZhESKx5QMjwARsVAdDwaTeSqOlRzectNSDfnqY?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=0eJz5d
+- Isabela González  
+  https://github.com/isagonzaleze17-cpu -
