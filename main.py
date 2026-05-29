@@ -1,4 +1,5 @@
 import sys
+<<<<<<< HEAD
 
 sys.path.insert(0, ".")
 
@@ -10,6 +11,18 @@ load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"))
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware  # ← agregar
 
+=======
+sys.path.insert(0, ".")
+
+# Cargar .env antes de cualquier import de src/
+import os
+from dotenv import load_dotenv
+load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"))
+
+from fastapi import FastAPI
+
+# Registrar todos los modelos en Base.metadata
+>>>>>>> origin/prod
 import src.entities.usuario
 import src.entities.departamento
 import src.entities.grado

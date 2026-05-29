@@ -2,14 +2,11 @@ import datetime
 from uuid import UUID
 
 from src.database.config import SessionLocal
-
 from src.entities.asistencia import Asistencia
-
-db = SessionLocal()
 
 
 def crear_asistencia(
-    fecha: datetime,
+    fecha: datetime.datetime,
     estado: str,
     id_estudiante: UUID,
     id_curso: UUID,
