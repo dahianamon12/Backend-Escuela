@@ -1,14 +1,15 @@
 import sys
+
 sys.path.insert(0, ".")
 
-# Cargar .env antes de cualquier import de src/
 import os
 from dotenv import load_dotenv
+
 load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"))
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware  # ← agregar
 
-# Registrar todos los modelos en Base.metadata
 import src.entities.usuario
 import src.entities.departamento
 import src.entities.grado
@@ -37,6 +38,29 @@ app = FastAPI(
     title="API Escuela",
     description="Sistema de gestión escolar – ORM + FastAPI + Neon PostgreSQL",
     version="1.0.0",
+)
+origins = [
+    "https://escuela-final.web.app",
+    "https://escuela-final.firebaseapp.com",
+    "http://localhost:4200",
+]
+
+# Aplicar las reglas de CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# ← agregar esto antes de los routers
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.include_router(usuario_router)
