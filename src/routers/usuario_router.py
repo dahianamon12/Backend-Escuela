@@ -56,8 +56,12 @@ def obtener_usuario(id_usuario: UUID):
 def crear_usuario(data: UsuarioCreate):
     try:
         return usuario_crud.crear(
-            data.nombre, data.email, data.nombre_usuario,
-            data.contrasena, data.rol, data.activo
+            data.nombre,
+            data.email,
+            data.nombre_usuario,
+            data.contrasena,
+            data.rol,
+            data.activo,
         )
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
@@ -76,6 +80,19 @@ def actualizar_usuario(id_usuario: UUID, data: UsuarioUpdate):
     )
     if not usuario:
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
+    return usuario
+
+
+class LoginRequest(BaseModel):
+    nombre_usuario: str
+    contrasena: str
+
+
+@router.post("/login", response_model=UsuarioResponse)
+def login(data: LoginRequest):
+    usuario = usuario_crud.login(data.nombre_usuario, data.contrasena)
+    if not usuario:
+        raise HTTPException(status_code=401, detail="Usuario o contraseña incorrectos")
     return usuario
 
 
